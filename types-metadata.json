@@ -1,0 +1,23 @@
+{
+  "authors": "Adam Smith <https://github.com/burkybang>",
+  "definitionFilename": "index.d.ts",
+  "libraryDependencies": [],
+  "moduleDependencies": [],
+  "libraryMajorVersion": "0",
+  "libraryMinorVersion": "0",
+  "libraryName": "NetSuite UI",
+  "typingsPackageName": "netsuite-ui",
+  "projectName": "http://www.netsuite.com",
+  "sourceRepoURL": "https://github.com/burkybang/NetSuite-UI",
+  "sourceBranch": "types-2.0",
+  "kind": "Global",
+  "globals": [
+    "nlExtOpenDivWindow",
+    "nlExtOpenWindow"
+  ],
+  "declaredModules": [],
+  "files": [
+    "index.d.ts"
+  ],
+  "hasPackageJson": false
+}

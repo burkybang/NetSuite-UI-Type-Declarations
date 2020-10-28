@@ -1,7 +1,7 @@
 // Type definitions for NetSuite UI
 // Project: http://www.netsuite.com
 // Definitions by: Adam Smith <https://github.com/burkybang> <https://twitter.com/burkybang>
-// Definitions: https://github.com/burkybang/NetSuite-UI
+// Definitions: https://github.com/burkybang/NetSuite-UI-Types
 
 /**
  * Create native NetSuite modal window with HTML
@@ -47,13 +47,13 @@ declare function nlExtOpenWindow(url: string, windowId: string, width: number, h
  * @param {string} id - Banner element id
  * @param {string} title - Title of the banner
  * @param {string} body - Body of the banner
- * @param {NLAlertDialog} type - Type of banner
+ * @param {number} type - Type of banner
  * @return {void}
  *
  * @example
  * showAlertBox('upload-status', 'Upload Complete', 500, 400, undefined, undefined, 'My Test Window');
  */
-declare function showAlertBox(id: string, title: string, body: string, type: NLAlertDialog): void;
+declare function showAlertBox(id: string, title: string, body: string, type: number): void;
 
 /**
  * Create native NetSuite alert banner
@@ -73,20 +73,20 @@ declare function hideAlertBox(id: string): void;
  *
  * @param {string} body - Body of the message box
  * @param {string} title - Title of the message box
- * @param {NLAlertDialog} type - Type of message box
+ * @param {number} type - Type of message box
  * @return {void}
  *
  * @example
  * nlShowMessage('This is a test message', 'Test Title');
  */
-declare function nlShowMessage(body: string, title: string, type: NLAlertDialog): void;
+declare function nlShowMessage(body: string, title: string, type: number): void;
 
-
-declare enum NLAlertDialog {
-  CONFIRMATION,
-  INFORMATION,
-  WARNING,
-  ERROR,
+declare namespace NLAlertDialog {
+  export const CONFIRMATION = 0;
+  export const INFORMATION = 1;
+  export const WARNING = 2;
+  export const ERROR = 3;
+  export const imageNames: ['confirmation', 'info', 'warning', 'error'];
 }
 
 declare namespace NS {
@@ -163,7 +163,7 @@ declare function getDropdownFromNameC(name: string, window: Window): NLDropdown
 
 declare function getTextWidthDiv(): HTMLDivElement
 
-declare function getMultiDropdown(inpt: HTMLSpanElement | HTMLInputElement, window: Window): NLMultiDropdown
+declare function getMultiDropdown(inpt: HTMLSpanElement | HTMLInputElement, window?: Window): NLMultiDropdown
 
 declare function getMultiDropdownFromNameC(name: string, window: Window): NLMultiDropdown
 
@@ -367,7 +367,7 @@ declare interface NLMultiDropdown {
   
   deleteAllOptions(): void
   
-  deleteOneOption(a): void
+  deleteOneOption(lookupValue: string | number): void
   
   getCell(a)
   
@@ -458,7 +458,7 @@ declare function setWindowChanged(window: Window, changed: boolean): void;
 
 declare function addParamToURL(url: string, param: string, value: string, replace?: boolean): string;
 
-declare function appendFormDataToURL(url: string): void;
+declare function appendFormDataToURL(url: string): string;
 
 declare function setTarget(a: string, b: string, c: boolean): void;
 

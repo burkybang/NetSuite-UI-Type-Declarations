@@ -464,4 +464,61 @@ declare function setTarget(a: string, b: string, c: boolean): void;
 
 declare function NLPopupSelect_close(a?: string): void;
 
-declare function globalSearch(string: string): void;
+declare function globalSearch(query: string): void;
+
+/**
+ * @description This needs to be called first, otherwise `nsRecordTypes` will be undefined
+ *
+ * @return {void}
+ */
+declare function nsapiInitRecords(): void;
+
+interface NSRecordType {
+  id: string,
+  type: string,
+  url: string,
+  scriptable: boolean,
+  initializedefaults: string[],
+  transformdefaults: string[],
+  urlparams?: string,
+}
+
+declare const nsRecordTypes: { [key: string]: NSRecordType };
+
+declare function nsapiGetRecord(type: string): NSRecordType
+
+/**
+ * @description Similar to `nlapiResolveURL('RECORD', type, id)`, but the resulting URL doesn't contain the `compid` parameter
+ *
+ * @param {string} type
+ * @param {string} id
+ * @return {string}
+ */
+declare function nsapiGetRecordURL(type: string, id: number | string): string
+
+/**
+ * @description This needs to be called first, otherwise `nsUsageCosts` will be undefined
+ *
+ * @return {void}
+ */
+declare function nsapiCheckUsage(): void;
+
+/**
+ * @description Object containing list of NetSuite functions and their governance
+ */
+declare const nsUsageCosts: { [key: string]: number };
+
+/**
+ * @description A Machine is a sublist
+ * @param {string} machine - The sublist ID
+ */
+declare function getMachine(machine: string): Machine
+
+interface Machine {
+  
+  /**
+   * @description Move currently selected line to the top or bottom
+   * @param {boolean} [top=true]
+   */
+  moveLineToTopOrBottom(top?: boolean): boolean
+}

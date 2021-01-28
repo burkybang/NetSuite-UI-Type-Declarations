@@ -116,24 +116,24 @@ declare namespace NS {
   export namespace form {
   }
   
-  export interface form {
-    isInited(): boolean
+  export namespace form {
+    function isInited(): boolean
     
-    setInited(val: boolean): void
+    function setInited(isInited: boolean): void
     
-    isChanged(): boolean
+    function isChanged(): boolean
     
-    setChanged(val: boolean): void
+    function setChanged(isChanged: boolean): void
     
-    isValid(): boolean
+    function isValid(): boolean
     
-    setValid(val: boolean): void
+    function setValid(isValid: boolean): void
     
-    isEditMode(): boolean
+    function isEditMode(): boolean
     
-    isViewMode(): boolean
+    function isViewMode(): boolean
     
-    isNewMode(): boolean
+    function isNewMode(): boolean
   }
   
   export namespace sessionStatusUI {
@@ -369,7 +369,7 @@ declare interface NLMultiDropdown {
   
   deleteOneOption(lookupValue: string | number): void
   
-  getCell(a)
+  getCell(index: number): HTMLTableCellElement
   
   getContainer(): HTMLSpanElement
   

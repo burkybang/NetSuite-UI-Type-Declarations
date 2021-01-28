@@ -203,7 +203,7 @@ declare interface NLDropdown {
   inptText: string
   inptWidth: number
   
-  addOption(value: string, text: string, index: number): void
+  addOption(text: string, value: string, index: number): void
   
   adjustDivForScrollbar(div: HTMLDivElement): void
   

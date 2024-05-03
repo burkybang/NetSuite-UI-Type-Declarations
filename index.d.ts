@@ -7,38 +7,80 @@
  * Create native NetSuite modal window with HTML
  * Only available in browser context
  *
- * @param {string} windowId - Added as a class to the modal window
- * @param {number} width - Width of the modal window
- * @param {number} height - Height of the modal window
- * @param {*} unknown1
- * @param {*} unknown2
- * @param {string} windowTitle - Displays in the top bar of the modal window
- * @param {undefined} unknown3
- * @param {string} html - HTML to display in the body of the modal window
- * @return {void}
+ * @param windowId - Added as a class to the modal window
+ * @param width - Width of the modal window
+ * @param height - Height of the modal window
+ * @param unknown1
+ * @param unknown2
+ * @param windowTitle - Displays in the top bar of the modal window
+ * @param unknown3
+ * @param html - HTML to display in the body of the modal window
  *
  * @example
  * nlExtOpenDivWindow('my-test-window', 500, 400, undefined, undefined, 'My Test Window', undefined, '<strong>This is a test body</strong>');
  */
-declare function nlExtOpenDivWindow(windowId: string, width: number, height: number, unknown1: any, unknown2: any, windowTitle: string, unknown3: any, html: string): void;
+declare function nlExtOpenDivWindow(
+  windowId: string,
+  width: number,
+  height: number,
+  unknown1: unknown,
+  unknown2: unknown,
+  windowTitle: string,
+  unknown3: unknown,
+  html: string,
+): void;
 
 /**
  * Create native NetSuite modal window with URL
  * Only available in browser context
  *
- * @param {string} url - Value for src of the iframe in the body of the modal window - It's best to always add ifrmcntnr=T as a parameter if using a NetSuite URL
- * @param {string} windowId - Added as a class to the modal window
- * @param {number} width - Width of the modal window
- * @param {number} height - Height of the modal window
- * @param {undefined} fld
- * @param {boolean} scrollbars - Auto scroll?
- * @param {string} windowTitle - Displays in the top bar of the modal window
- * @return {void}
+ * @param url - Value for src of the iframe in the body of the modal window - It's best to always add ifrmcntnr=T as a parameter if using a NetSuite URL
+ * @param windowId - Added as a class to the modal window
+ * @param width - Width of the modal window
+ * @param height - Height of the modal window
+ * @param [fld]
+ * @param [scrollbars] - Auto scroll?
+ * @param [windowTitle] - Displays in the top bar of the modal window
  *
  * @example
  * nlExtOpenWindow('https://netsuite.com', 'my-test-window', 500, 400, undefined, undefined, 'My Test Window');
  */
-declare function nlExtOpenWindow(url: string, windowId: string, width: number, height: number, fld: any, scrollbars: boolean, windowTitle: string): void;
+declare function nlExtOpenWindow(
+  url: string,
+  windowId: string,
+  width: number,
+  height: number,
+  fld?: unknown,
+  scrollbars?: boolean,
+  windowTitle?: string,
+): void;
+
+/**
+ * Create native NetSuite modal window with URL
+ * Only available in browser context
+ *
+ * @param options
+ * @param options.url - Value for src of the iframe in the body of the modal window - It's best to always add ifrmcntnr=T as a parameter if using a NetSuite URL
+ * @param options.winnname - Added as a class to the modal window
+ * @param options.width - Width of the modal window
+ * @param options.height - Height of the modal window
+ * @param [options.fld]
+ * @param [options.scrollbars] - Auto scroll?
+ * @param [options.winTitle] - Displays in the top bar of the modal window
+ * @param [options.listeners]
+ * @param [options.triggerObj]
+ */
+declare function nlExtOpenNewUIWindow(options: {
+  url: string,
+  winnname: string,
+  width: number,
+  height: number,
+  fld?: unknown,
+  scrollbars?: boolean,
+  winTitle?: string,
+  listeners?: {},
+  triggerObj?: {},
+}): void;
 
 interface AlertBox {
   
@@ -48,11 +90,10 @@ interface AlertBox {
  * Create native NetSuite alert banner
  * Only available in browser context
  *
- * @param {string} id - Banner element id
- * @param {string} title - Title of the banner
- * @param {string} body - Body of the banner
- * @param {number} type - Type of banner
- * @return {void}
+ * @param id - Banner element id
+ * @param title - Title of the banner
+ * @param body - Body of the banner
+ * @param type - Type of banner
  *
  * @example
  * showAlertBox('upload-status', 'Upload Complete', 500, 400, undefined, undefined, 'My Test Window');
@@ -62,8 +103,7 @@ declare function showAlertBox(id: string, title: string, body: string, type: num
 /**
  * Only available in browser context
  *
- * @param {string} id - Banner element id
- * @return {void}
+ * @param id - Banner element id
  *
  * @example
  * getAlertBox('upload-status');
@@ -73,9 +113,8 @@ declare function getAlertBox(id: string): AlertBox;
 /**
  * Only available in browser context
  *
- * @param {AlertBox} olderAlertBox
- * @param {AlertBox} newAlertBox
- * @return {void}
+ * @param olderAlertBox
+ * @param newAlertBox
  *
  * @example
  * replaceAlertBox(getAlertBox('upload-status1'), getAlertBox('upload-status1'));
@@ -86,8 +125,7 @@ declare function replaceAlertBox(olderAlertBox: AlertBox, newAlertBox: AlertBox)
  * Create native NetSuite alert banner
  * Only available in browser context
  *
- * @param {string} id - Banner element id
- * @return {void}
+ * @param id - Banner element id
  *
  * @example
  * hideAlertBox('upload-status');
@@ -98,10 +136,9 @@ declare function hideAlertBox(id: string): void;
  * Create native NetSuite alert message box
  * Only available in browser context
  *
- * @param {string} body - Body of the message box
- * @param {string} title - Title of the message box
- * @param {number} type - Type of message box
- * @return {void}
+ * @param body - Body of the message box
+ * @param title - Title of the message box
+ * @param type - Type of message box
  *
  * @example
  * nlShowMessage('This is a test message', 'Test Title');
@@ -116,23 +153,32 @@ interface Window {
   replaceAlertBox: typeof replaceAlertBox;
   hideAlertBox: typeof hideAlertBox;
   nlShowMessage: typeof nlShowMessage;
+  getDropdown: typeof getDropdown;
+  getMultiDropdown: typeof getMultiDropdown;
+  // 2023.2+
+  _globalSearch: typeof NS.UI.SystemSearch.service;
 }
 
-declare namespace NLAlertDialog {
-  const CONFIRMATION = 0;
-  const INFORMATION = 1;
-  const WARNING = 2;
-  const ERROR = 3;
-  const imageNames: ['confirmation', 'info', 'warning', 'error'];
+declare class NLAlertDialog {
+  static CONFIRMATION: 0;
+  static INFORMATION: 1;
+  static WARNING: 2;
+  static ERROR: 3;
+  static imageNames: ['confirmation', 'info', 'warning', 'error'];
 }
 
 declare interface NS {
   // @ts-ignore
   jQuery: jQuery;
+  
+  // 2023.2+
+  UIF: typeof NS.UIF;
+  
+  Dashboard: typeof NS.Dashboard;
 }
 
 declare namespace NS {
-  namespace UI {
+  export namespace UI {
     namespace Constants {
       let GLOBALSEARCH_MAX_ITEMS: number;
       let MENU_ITEM_HEIGHT: number;
@@ -140,7 +186,7 @@ declare namespace NS {
     namespace Helpers {
       function preventDefault(event: MouseEvent): void;
     }
-    namespace Menu {
+    /*namespace Menu {
       export namespace menus {
         export interface roles {
           refreshItem(item: any);
@@ -148,39 +194,66 @@ declare namespace NS {
           rootElement: Element;
         }
       }
-    }
+    }*/
     namespace Messaging {
       namespace Alert {
-        
       }
     }
+    namespace SystemSearch {
+      // 2023.1
+      function initializeService(service: _2023_1.UIF.SystemSearchService): void;
+      
+      function addPageData(): void;
+      
+      const service: {
+        _searchTextBox: {
+          _input: {
+            _getInputText(): string;
+            
+            setText(text: string): boolean;
+          }
+        };
+        
+        _picker: {
+          close(): void;
+        };
+      };
+    }
+  }
+  
+  // 2023.2+
+  export namespace UIF {
+    function load(): _2023_2.UIF;
   }
   
   export namespace Dashboard {
     function getInstance(): NSDashboard;
   }
   
-  namespace form {
+  export namespace Header {
+    let Create: unknown;
+    let Roles: unknown;
+    let Main: unknown;
   }
   
   namespace form {
-    function isInited(): boolean
+    function isInited(): boolean;
     
-    function setInited(isInited: boolean): void
+    function setInited(isInited: boolean): void;
     
-    function isChanged(): boolean
+    function isChanged(): boolean;
     
-    function setChanged(isChanged: boolean): void
+    function setChanged(isChanged: boolean): void;
     
-    function isValid(): boolean
+    function isValid(): boolean;
     
-    function setValid(isValid: boolean): void
+    function setValid(isValid: boolean): void;
     
-    function isEditMode(): boolean
+    function isEditMode(): boolean;
     
-    function isViewMode(): boolean
+    function isViewMode(): boolean;
     
-    function isNewMode(): boolean
+    function isNewMode(): boolean;
   }
   
   namespace sessionStatusUI {
@@ -197,7 +270,7 @@ declare interface NSDashboard {
   identity: {
     dashboardId: number,
   };
-  portlets: { [p: string]: NSPortlet };
+  portlets: Record<string, NSPortlet>;
   
   addPortlet(b?: unknown, c?: unknown, a?: unknown): void;
   
@@ -213,7 +286,7 @@ declare interface NSDashboard {
   
   dropPortletOnContentManager(b?: unknown): void;
   
-  getBackend(): { [p: string]: unknown };
+  getBackend(): Record<string, unknown>;
   
   getId(): number;
   
@@ -300,7 +373,7 @@ declare interface NSPortlet {
   
   finalize(): void;
   
-  getBackend(): { [p: string]: unknown };
+  getBackend(): Record<string, unknown>;
   
   getCurrentWrapperLayoutClass(a?: unknown): unknown;
   
@@ -386,78 +459,60 @@ declare interface NSPortlet {
   updatePortlet(a?: unknown): void;
 }
 
-declare function closePopup(): void
+declare function closePopup(): void;
+
+declare class ExtWindow {
+  x: number;
+  y: number;
+  
+  title: string;
+  
+  close(): void;
+  
+  setTitle(title: string): void;
+  
+  setWidth(width: number): this;
+  
+  getWidth(): number;
+  
+  setHeight(height: number): this;
+  
+  getHeight(): number;
+  
+  setPosition(x: number, y: number): this;
+  
+  getY(): number;
+  
+  getX(): number;
+  
+  getXY(): [x: number, y: number];
+  
+  setY(y: number, options?: Record<string, unknown>): void;
+  
+  setX(x: number, options?: Record<string, unknown>): void;
+  
+  setXY(xy: [x: number, y: number], options?: Record<string, unknown>): void;
+}
 
 // https://docs.sencha.com/extjs/7.3.1/classic/Ext.Component.html
-declare namespace Ext {
-  export class Window {
-    x: number;
-    y: number;
+declare interface Ext {
+  WindowManager: {
+    getActive(): Ext['WindowWrapper'];
     
-    close(): void
-    
-    setWidth(width: number): this
-    
-    getWidth(): number
-    
-    setHeight(height: number): this
-    
-    getHeight(): number
-    
-    setPosition(x: number, y: number): this
-    
-    /**
-     * 2022+
-     */
-    getY(): number
-    
-    /**
-     * 2022+
-     */
-    getX(): number
-    
-    /**
-     * 2022+
-     */
-    getXY(): [x: number, y: number]
-    
-    /**
-     * 2022+
-     */
-    setY(y: number, options?: { [p: string]: any }): void
-    
-    /**
-     * 2022+
-     */
-    setX(x: number, options?: { [p: string]: any }): void
-    
-    /**
-     * 2022+
-     */
-    setXY(xy: [x: number, y: number], options?: { [p: string]: any }): void
-  }
+    get(componentId: string): ExtWindow;
+  };
   
   /**
-   * Pre-2022
+   * 2024.1+
    */
-  export namespace WindowMgr {
-    function getActive(): Ext.Window
-    
-    function get(componentId: string): Ext.Window
-  }
-  
-  /**
-   * 2022+
-   */
-  export namespace WindowManager {
-    function getActive(): Ext.Window
-    
-    function get(componentId: string): Ext.Window
-  }
+  WindowWrapper: {
+    content: HTMLIFrameElement;
+    element: HTMLDivElement;
+  };
 }
 
 interface Window {
-  Ext: typeof Ext;
+  Ext: Ext;
   closePopup: typeof closePopup;
   dropdowns: typeof dropdowns;
   multidropdowns: typeof multidropdowns;
@@ -465,23 +520,22 @@ interface Window {
   machines: typeof machines;
   refreshmachine: typeof refreshmachine;
   DROPDOWN_INPUT_MAX_SIZE_PIXELS: number;
+  ischanged: boolean;
 }
 
-declare var dropdowns: { [key: string]: NLDropdown };
-declare var multidropdowns: { [key: string]: NLMultiDropdown };
+declare const dropdowns: Record<string, NLDropdown>;
+declare const multidropdowns: Record<string, NLMultiDropdown>;
 
-declare function getDropdown(inpt: HTMLSpanElement | HTMLInputElement, window?: Window): NLDropdown
+declare function getDropdown(inpt: HTMLSpanElement | HTMLInputElement, window?: Window): NLDropdown;
 
-declare function getDropdownFromNameC(name: string, window: Window): NLDropdown
+declare function getDropdownFromNameC(name: string, window: Window): NLDropdown;
 
-declare function getTextWidthDiv(): HTMLDivElement
+declare function getMultiDropdown(inpt: HTMLSpanElement | HTMLInputElement, window?: Window): NLMultiDropdown;
 
-declare function getMultiDropdown(inpt: HTMLSpanElement | HTMLInputElement, window?: Window): NLMultiDropdown
-
-declare function getMultiDropdownFromNameC(name: string, window: Window): NLMultiDropdown
+declare function getMultiDropdownFromNameC(name: string, window: Window): NLMultiDropdown;
 
 declare class NLDropdown {
-  constructor(name: string, nameC: string, values: any[], defaultIndex: number, e: any, flags: number, h: any, minimumWidth?, k?: any);
+  constructor(name: string, nameC: string, values: any[], defaultIndex: number, e: any, flags: number, h: any, minimumWidth?: unknown, k?: any);
   
   // this.setWidth(h, minimumWidth, k);
   
@@ -583,7 +637,7 @@ declare class NLDropdown {
   
   hasAttribute(attribute: string): boolean;
   
-  initializeElements(extWindow: Ext.Window): void;
+  initializeElements(extWindow: ExtWindow): void;
   
   isSelectable(): boolean;
   
@@ -640,7 +694,7 @@ declare class NLDropdown {
   sizeDiv(): void;
 }
 
-declare interface NLMultiDropdown {
+declare class NLMultiDropdown {
   constructor(name: string, nameC: string, values: any[], defaultValues: any[], e: any, f: any, h: any, g: any);
   
   renderDocument: Document;
@@ -667,17 +721,17 @@ declare interface NLMultiDropdown {
   previousIds: number;
   onMouseMoveIdx: number;
   
-  add(a, b): void;
+  add(a: unknown, b: unknown): void;
   
-  addIndex(a): void;
+  addIndex(a: unknown): void;
   
-  addOption(a, b, c, d): void;
+  addOption(text: string, value: string, unknown: unknown, index: number): void;
   
   becomeCurrent(): void;
   
   buildSpan(): void;
   
-  contains(a): boolean;
+  contains(a: unknown): boolean;
   
   deleteAllOptions(): void;
   
@@ -695,19 +749,19 @@ declare interface NLMultiDropdown {
   
   getRequired(): boolean;
   
-  getSelectedText(a);
+  getSelectedText(a: unknown): unknown;
   
-  getSelectedTextFromValues(a, b);
+  getSelectedTextFromValues(a: unknown, b: unknown): unknown;
   
-  getSelectedValues();
+  getSelectedValues(): unknown;
   
   getText(index: number): string;
   
   getTextForValue(lookupValue: string | number): string;
   
-  getValue(a);
+  getValue(a: unknown): unknown;
   
-  getValues();
+  getValues(): unknown;
   
   handleKeydown(event: Event): void;
   
@@ -719,21 +773,21 @@ declare interface NLMultiDropdown {
   
   handleMouseUp(event: Event): void;
   
-  handleMoveSelection(a, b): void;
+  handleMoveSelection(a: unknown, b: unknown): void;
   
   handleScrolling(event: Event): void;
   
-  handleShiftKey(a, b): void;
+  handleShiftKey(a: unknown, b: unknown): void;
   
   handleTypeAhead(event: Event): void;
   
   hasAttribute(attribute: string): boolean;
   
-  highLightBorder(a): void;
+  highLightBorder(a: unknown): void;
   
   positionHelperIconsForNonIE(): void;
   
-  remove(a, b): void;
+  remove(a: unknown, b: unknown): void;
   
   removeAll(): void;
   
@@ -747,7 +801,7 @@ declare interface NLMultiDropdown {
   
   setHidden(hidden: boolean): void;
   
-  setHiddenField(a): void;
+  setHiddenField(a: unknown): void;
   
   setIndex(index: number, focus: boolean): void;
   
@@ -755,23 +809,29 @@ declare interface NLMultiDropdown {
   
   setRequired(required: boolean): void;
   
-  setValue(a): void;
+  setValue(a: unknown): void;
   
-  setValues(a, b): void;
+  setValues(a: unknown, b: unknown): void;
   
   setWidth(): void;
 }
 
 // @ts-ignore
-declare function initializeDropdowns(parent: jQuery<HTMLElement>)
+declare function initializeDropdowns(parent: jQuery<HTMLElement>): unknown;
 
-declare var shownmachine: string;
+declare function ShowTab(subtabId: string, ignoreInitted: boolean): void;
 
-declare function ShowmainMachine(machine: string): void;
+declare function getTextWidthDiv(): HTMLDivElement;
 
-declare function refreshmachine(machine: string, params?: string): void;
-
+/**
+ * @description Auto resizes the height of the table content on a list view
+ */
 declare function resetDivSizes(): void;
+
+/**
+ * @description Realigns the horizontal scroll of the header with the table content on a list view
+ */
+declare function scrollDiv(): void;
 
 declare function l_sort(a: number, b: string, c: boolean, d: any, e: string, f: string, g: any, h: number): void;
 
@@ -797,57 +857,46 @@ interface Window {
 
 /**
  * @description This needs to be called first, otherwise `nsRecordTypes` will be undefined
- *
- * @return {void}
  */
 declare function nsapiInitRecords(): void;
 
-interface NSRecordType {
-  id: string,
-  type: string,
-  url: string,
-  scriptable: boolean,
-  initializedefaults: string[],
-  transformdefaults: string[],
-  urlparams?: string,
+type NSRecordType<RecordType extends string = string> = {
+  id: RecordType;
+  type: string;
+  url: string;
+  scriptable: boolean;
+  initializedefaults: string[];
+  transformdefaults: string[];
+  urlparams?: string;
 }
 
-declare const nsRecordTypes: { [key: string]: NSRecordType };
+declare const nsRecordTypes: Record<string, NSRecordType>;
 
-declare function nsapiGetRecord(type: string): NSRecordType
+/**
+ * @param id - Record type
+ */
+declare function nsapiGetRecord<RecordType extends string>(type: RecordType): NSRecordType<RecordType>;
 
 /**
  * @description Similar to `nlapiResolveURL('RECORD', type, id)`, but the resulting URL doesn't contain the `compid` parameter
  *
- * @param {string} type
- * @param {string} id
- * @return {string}
+ * @param type
+ * @param id
  */
-declare function nsapiGetRecordURL(type: string, id: number | string): string
+declare function nsapiGetRecordURL(type: string, id: number | string): string;
 
 /**
  * @description This needs to be called first, otherwise `nsUsageCosts` will be undefined
- *
- * @return {void}
  */
 declare function nsapiCheckUsage(): void;
 
 /**
  * @description Object containing list of NetSuite functions and their governance
  */
-declare const nsUsageCosts: { [key: string]: number };
+declare const nsUsageCosts: Record<string, number>;
 
-declare var machines: { [machineId: string]: Machine };
-
-/**
- * @description A Machine is a sublist
- * @param {string} machineId - The sublist ID
- */
-declare function getMachine(machineId: string): Machine
-
-interface Machine {
-  
-  name: string;
+interface Machine<Name extends string = string> {
+  name: Name;
   tableobj: HTMLTableElement;
   table_labels: string[];
   form_elems: string[];
@@ -855,23 +904,51 @@ interface Machine {
   dataManager: NLRecordManager;
   
   /**
+   * @description Remove all lines
+   * @param lines - Positive or negative number of lines to move
+   */
+  moveline(lines: number): void;
+  
+  /**
+   * @description Remove all lines
+   * @param line - Line number 1-index
+   */
+  movelineto(line: number): void;
+  
+  /**
    * @description Move currently selected line to the top or bottom
-   * @param {boolean} [top=true]
-   * @return {boolean}
+   * @param [top = false]
    */
   moveLineToTopOrBottom(top?: boolean): boolean;
   
   /**
+   * @description Delete multiple lines by a range
+   * @param lineBeforeStart - Interger one minus the first 1-indexed line number of the first line to delete
+   * @param lastLine - Integer 1-indexed line number of the last line to delete
+   */
+  deletelines(lineBeforeStart: number, lastLine: number): boolean;
+  
+  /**
    * @description Remove all lines
-   * @return {void}
    */
   clearmachine(): void;
   
   getInputElements(): HTMLInputElement[];
 }
 
+declare var machines: Record<string, Machine>;
+
+/**
+ * @description A Machine is a sublist
+ * @param sublistId
+ */
+declare function getMachine<SublistId extends string>(sublistId: SublistId): Machine<SublistId>;
+
+declare var shownmachine: string;
+
+declare function refreshmachine(sublistId: string, params?: string): void;
+
 interface NLRecordManager {
-  
   fields: Record<string, {
     dependency_order: number;
     isCurrency: boolean;
@@ -883,5 +960,91 @@ interface NLRecordManager {
     required: boolean;
     type: string;
     validationType: string;
-  }>
+  }>;
+}
+
+declare const UIF: typeof _2023_1.UIF;
+
+declare namespace _2023_1 {
+  namespace UIF {
+    function getApp(path: string): Promise<Args>;
+    
+    namespace Args.App {
+      class NetsuiteSystemHeaderFactory {
+        constructor(options: unknown);
+        
+        createHeader(context: Context, unknown: boolean): Header;
+        
+        getSystemSearchService(): SystemSearchService;
+      }
+    }
+    
+    interface Args {
+      context: Context;
+      Core: Core;
+      App: typeof Args.App;
+    }
+    
+    interface Context {
+    }
+    
+    interface Core {
+      VDom: VDom;
+    }
+    
+    interface VDom {
+      (context: VDomContext, options: { value: Context }, header: Header): VDomResult;
+      
+      render(result: VDomResult, divHeaderEl: HTMLDivElement): VDomRenderResult;
+      
+      Context: VDomContext;
+    }
+    
+    interface VDomResult {
+    }
+    
+    interface VDomRenderResult {
+      container: HTMLDivElement;
+      current: {};
+      disposed: boolean;
+      updateHandle: unknown | null;
+      updating: boolean;
+      workInProgress: unknown | null;
+    }
+    
+    interface VDomContext {
+    }
+    
+    interface Header {
+    }
+    
+    interface SystemSearchService {
+    }
+  }
+}
+
+// 2023.2+
+declare namespace _2023_2 {
+  export interface UIF {
+    host: Host;
+  }
+  
+  export interface SystemHeader {
+    renderNetsuiteHeader(host: Host, options: unknown, isLecacy: boolean): RenderedHeader;
+  }
+  
+  export interface RenderedHeader {
+  
+  }
+  
+  // 2023.2+
+  export interface Host {
+    context: {
+      systemSearch: {
+        _systemSearchService: typeof NS.UI.SystemSearch.service;
+      };
+    };
+    
+    render(renderedHeader: RenderedHeader, divHeaderEl: HTMLDivElement): void;
+  }
 }

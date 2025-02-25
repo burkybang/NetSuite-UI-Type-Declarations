@@ -1,0 +1,24 @@
+{
+  "name": "netsuite-ui-types",
+  "version": "1.0.0",
+  "description": "Type declarations for NetSuite UI",
+  "homepage": "https://github.com/burkybang/NetSuite-UI-Type-Declarations",
+  "bugs": {
+    "url": "https://github.com/burkybang/NetSuite-UI-Type-Declarations/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/burkybang/NetSuite-UI-Type-Declarations.git"
+  },
+  "types": "index.d.ts",
+  "files": [
+    "*.d.ts"
+  ],
+  "contributors": [
+    {
+      "name": "Adam Smith",
+      "url": "https://github.com/burkybang",
+      "author": true
+    }
+  ]
+}

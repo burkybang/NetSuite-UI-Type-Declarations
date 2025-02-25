@@ -1,5 +1,5 @@
 {
-  "name": "netsuite-ui-types",
+  "name": "@types/netsuite-ui",
   "version": "1.0.0",
   "description": "Type declarations for NetSuite UI",
   "homepage": "https://github.com/burkybang/NetSuite-UI-Type-Declarations",

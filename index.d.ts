@@ -155,8 +155,6 @@ interface Window {
   nlShowMessage: typeof nlShowMessage;
   getDropdown: typeof getDropdown;
   getMultiDropdown: typeof getMultiDropdown;
-  // 2023.2+
-  _globalSearch: typeof NS.UI.SystemSearch.service;
 }
 
 declare class NLAlertDialog {
@@ -171,7 +169,6 @@ declare interface NS {
   // @ts-ignore
   jQuery: jQuery;
   
-  // 2023.2+
   UIF: typeof NS.UIF;
   
   Dashboard: typeof NS.Dashboard;
@@ -200,9 +197,6 @@ declare namespace NS {
       }
     }
     namespace SystemSearch {
-      // 2023.1
-      function initializeService(service: _2023_1.UIF.SystemSearchService): void;
-      
       function addPageData(): void;
       
       const service: {
@@ -214,16 +208,15 @@ declare namespace NS {
           }
         };
         
-        _picker: {
-          close(): void;
-        };
+        // >=2024.2
+        closePicker(): void;
       };
     }
   }
   
-  // 2023.2+
+  // >=2023.2
   export namespace UIF {
-    function load(): _2023_2.UIF;
+    function load(): Promise<_2023_2.UIF>;
   }
   
   export namespace Dashboard {
@@ -502,9 +495,7 @@ declare interface Ext {
     get(componentId: string): ExtWindow;
   };
   
-  /**
-   * 2024.1+
-   */
+  // >=2024.1
   WindowWrapper: {
     content: HTMLIFrameElement;
     element: HTMLDivElement;
@@ -571,7 +562,7 @@ declare class NLDropdown {
   inptText: string;
   inptWidth: number;
   
-  addOption(text: string, value: string, index: number): void;
+  addOption(text: string, value: string | number, index: number): void;
   
   adjustDivForScrollbar(div: HTMLDivElement): void;
   
@@ -963,67 +954,7 @@ interface NLRecordManager {
   }>;
 }
 
-declare const UIF: typeof _2023_1.UIF;
-
-declare namespace _2023_1 {
-  namespace UIF {
-    function getApp(path: string): Promise<Args>;
-    
-    namespace Args.App {
-      class NetsuiteSystemHeaderFactory {
-        constructor(options: unknown);
-        
-        createHeader(context: Context, unknown: boolean): Header;
-        
-        getSystemSearchService(): SystemSearchService;
-      }
-    }
-    
-    interface Args {
-      context: Context;
-      Core: Core;
-      App: typeof Args.App;
-    }
-    
-    interface Context {
-    }
-    
-    interface Core {
-      VDom: VDom;
-    }
-    
-    interface VDom {
-      (context: VDomContext, options: { value: Context }, header: Header): VDomResult;
-      
-      render(result: VDomResult, divHeaderEl: HTMLDivElement): VDomRenderResult;
-      
-      Context: VDomContext;
-    }
-    
-    interface VDomResult {
-    }
-    
-    interface VDomRenderResult {
-      container: HTMLDivElement;
-      current: {};
-      disposed: boolean;
-      updateHandle: unknown | null;
-      updating: boolean;
-      workInProgress: unknown | null;
-    }
-    
-    interface VDomContext {
-    }
-    
-    interface Header {
-    }
-    
-    interface SystemSearchService {
-    }
-  }
-}
-
-// 2023.2+
+// >=2023.2
 declare namespace _2023_2 {
   export interface UIF {
     host: Host;
@@ -1037,7 +968,6 @@ declare namespace _2023_2 {
   
   }
   
-  // 2023.2+
   export interface Host {
     context: {
       systemSearch: {

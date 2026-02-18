@@ -838,12 +838,19 @@ declare function NLPopupSelect_close(a?: string): void;
 
 declare function globalSearch(query: string): void;
 
+/**
+ * Saves and closes the Inventory Detail modal.
+ * Only available within Inventory Detail.
+ */
+declare function saveInventoryDetails(): void;
+
 interface Window {
   NS: NS;
   refreshmachine: typeof refreshmachine;
   resetDivSizes: typeof resetDivSizes;
   addParamToURL: typeof addParamToURL;
   appendFormDataToURL: typeof appendFormDataToURL;
+  saveInventoryDetails: typeof saveInventoryDetails;
 }
 
 /**
